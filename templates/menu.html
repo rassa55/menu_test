@@ -1,18 +1,26 @@
-{% if menu %}
-    <ul>
-        {% for item in menu.items.all %}
-            <li class="{% if item == active_item %}active{% endif %}">
-                <a href="{{ item.url }}">{{ item.title }}</a>
-                {% if item.children.all %}
-                    <ul>
-                        {% for child in item.children.all %}
-                            <li class="{% if child == active_item %}active{% endif %}">
-                                <a href="{{ child.url }}">{{ child.title }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+    {% if menu %}
+        <ul class="menu">
+            {% for item in menu.items.all %}
+                <li class="menu-item {% if item == active_item %}active{% endif %}">
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                    {% if item.children.all %}
+                        <ul class="submenu">
+                            {% for child in item.children.all %}
+                                <li class="submenu-item {% if child == active_item %}active{% endif %}">
+                                    <a href="{{ child.url }}">{{ child.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
